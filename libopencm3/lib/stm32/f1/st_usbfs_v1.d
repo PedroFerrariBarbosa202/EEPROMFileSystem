@@ -1,0 +1,23 @@
+st_usbfs_v1.o: ../st_usbfs_v1.c ../../../include/libopencm3/cm3/common.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stdint.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/stdint.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/machine/_default_types.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/features.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/_newlib_version.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/_intsup.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/_stdint.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stdbool.h \
+ ../../../include/libopencm3/stm32/rcc.h \
+ ../../../include/libopencm3/stm32/memorymap.h \
+ ../../../include/libopencm3/stm32/f1/memorymap.h \
+ ../../../include/libopencm3/cm3/memorymap.h \
+ ../../../include/libopencm3/stm32/f1/rcc.h \
+ ../../../include/libopencm3/stm32/common/rcc_common_all.h \
+ ../../../include/libopencm3/stm32/tools.h \
+ ../../../include/libopencm3/stm32/st_usbfs.h \
+ ../../../include/libopencm3/stm32/f1/st_usbfs.h \
+ ../../../include/libopencm3/stm32/common/st_usbfs_v1.h \
+ ../../../include/libopencm3/stm32/common/st_usbfs_common.h \
+ ../../../include/libopencm3/usb/usbd.h \
+ ../../../include/libopencm3/usb/usbstd.h ../../usb/usb_private.h \
+ ../common/st_usbfs_core.h
