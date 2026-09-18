@@ -1,7 +1,7 @@
 /**
  * \brief i2c driver header
  *
- * \author Pedro Ferrari Barbosa
+ * \author Pedro Ferrari Barbosa <pedro.ferraribarbosa2007@gmail.com>
  *
  * \version 1.0
  *
@@ -12,6 +12,9 @@
  * \{
  */
 
+#ifndef DRIVER_I2C_H
+#define DRIVER_I2C_H
+
 #include <stdint.h>
 #include <libopencm3/cm3/memorymap.h>
 #include <libopencm3/stm32/i2c.h>
@@ -21,9 +24,6 @@
 
 #define I2C_SLAVE_OWN_7BIT_ADDR      (0x00)
 
-/**
- * \brief I2C slave port.
- */
 typedef enum
 {
     I2C_PORT_0=0,       /**< I2C port 0. */
@@ -31,19 +31,12 @@ typedef enum
     I2C_PORT_2         /**< I2C port 2. */
 } i2c_port_t;
 
-/**
- * \brief I2C config struct.
- */
 typedef struct{
     uint32_t speed_hz;  /**< Transfer rate in bps (choose between 100k, 400k and 1m)*/
     uint32_t clock_freq_mhz;   /**< clock frequency in MHz*/
 }i2c_config_t;
 
-/**
- * \brief I2C slave 7-bit address.
- */
 typedef uint8_t i2c_slave_adr_t;
-
 
 /**
  * \brief init i2c device
@@ -86,4 +79,5 @@ int i2c_write(i2c_port_t port, i2c_slave_adr_t adr, uint8_t *data, uint16_t len)
  */
 int i2c_read(i2c_port_t port, i2c_slave_adr_t adr, uint8_t *data, uint16_t len);
 
+#endif
 /** } End of i2c*/

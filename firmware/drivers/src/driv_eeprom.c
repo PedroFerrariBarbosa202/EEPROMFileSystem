@@ -1,5 +1,5 @@
 /**
- * \brief eeprom device implementation 
+ * \brief eeprom driver implementation 
  *
  * \author Pedro Ferrari Barbosa <pedro.ferraribarbosa2007@gmail.com>
  *
@@ -8,7 +8,7 @@
  * \date 9/16/2026
  *
  * \defgroup eeprom EEPROM
- * \ingroup devices
+ * \ingroup driver
  * \{
  */
 

@@ -5,8 +5,8 @@ Q		:= @
 NULL		:= 2>/dev/null
 endif
 
-APP_SRC_DIR     = app/src
-APP_INC_DIR     = app/inc
+APP_SRC_DIR        = app/src
+APP_INC_DIR        = app/inc
 
 DEVICE_SRC_DIR     = devices/src
 DEVICE_INC_DIR     = devices/inc
@@ -16,6 +16,8 @@ DRIVER_INC_DIR     = drivers/inc
 
 SHARED_INC_DIR     = shared/inc
 SHARED_SRC_DIR     = shared/src
+
+SYSLOG_DIR     	   = system/syslog
 
 OPENCM3_DIR = ../libopencm3
 BINARY = firmware
@@ -43,6 +45,7 @@ DEFS		+= -I$(APP_INC_DIR)
 DEFS 		+= -I$(DEVICE_INC_DIR)
 DEFS		+= -I$(DRIVER_INC_DIR)
 DEFS		+= -I$(SHARED_INC_DIR)
+DEFS		+= -I$(SYSLOG_DIR)
 
 
 ###############################################################################
@@ -75,8 +78,14 @@ OBJS		+= $(DEVICE_SRC_DIR)/eeprom.o
 
 # drivers
 OBJS		+= $(DRIVER_SRC_DIR)/i2c.o
+OBJS		+= $(DRIVER_SRC_DIR)/mem_alloc.o
 
 # shared
+OBJS		+= $(SHARED_SRC_DIR)/uart.o
+
+# syslog
+OBJS		+= $(SYSLOG_DIR)/syslog.o
+
 
 ###############################################################################
 # C flags
