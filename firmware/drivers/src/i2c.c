@@ -16,6 +16,7 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include "i2c.h"
+#include "errno.h"
 
 int i2c_init(i2c_port_t port, i2c_config_t config){
     int err = 0;
@@ -37,9 +38,7 @@ int i2c_init(i2c_port_t port, i2c_config_t config){
 
     if (err == 0)
     {
-        uint16_t base_address = UINT16_MAX;
-
-        i2c_peripheral_disable(I2C1);
+        uint32_t base_address = UINT32_MAX;
 
         switch(port)
         {
@@ -49,10 +48,11 @@ int i2c_init(i2c_port_t port, i2c_config_t config){
 
                 rcc_periph_clock_enable(RCC_GPIOB);
                 rcc_periph_clock_enable(RCC_I2C1);
+                rcc_periph_reset_pulse(RST_I2C1);     
 
                 gpio_mode_setup(GPIOB,
                                 GPIO_MODE_AF,
-                                GPIO_PUPD_NONE,
+                                GPIO_PUPD_PULLUP,
                                 GPIO6 | GPIO7);
 
                 gpio_set_output_options(GPIOB,
@@ -72,6 +72,7 @@ int i2c_init(i2c_port_t port, i2c_config_t config){
 
                 rcc_periph_clock_enable(RCC_GPIOB);
                 rcc_periph_clock_enable(RCC_I2C2);
+                rcc_periph_reset_pulse(RST_I2C2);     
 
                 gpio_mode_setup(GPIOB,
                                 GPIO_MODE_AF,
@@ -96,6 +97,8 @@ int i2c_init(i2c_port_t port, i2c_config_t config){
                 rcc_periph_clock_enable(RCC_GPIOA);
                 rcc_periph_clock_enable(RCC_GPIOB);
                 rcc_periph_clock_enable(RCC_I2C3);
+                rcc_periph_reset_pulse(RST_I2C3);     
+
 
                 gpio_mode_setup(GPIOA,
                                 GPIO_MODE_AF,
@@ -142,6 +145,11 @@ int i2c_init(i2c_port_t port, i2c_config_t config){
         }
 
         if(err == 0){
+            i2c_peripheral_disable(base_address);
+
+            I2C_CR1(base_address) |= I2C_CR1_SWRST;
+            I2C_CR1(base_address) &= ~I2C_CR1_SWRST;
+
             i2c_set_clock_frequency(base_address, config.clock_freq_mhz);
             i2c_set_speed(base_address, config.speed_hz, config.clock_freq_mhz);
             i2c_set_own_7bit_slave_address(base_address, I2C_SLAVE_OWN_7BIT_ADDR);
@@ -151,12 +159,13 @@ int i2c_init(i2c_port_t port, i2c_config_t config){
         }
     }
 
+    return err;  
 }
 
 int i2c_write(i2c_port_t port, i2c_slave_adr_t adr, uint8_t *data, uint16_t len){
     int err = 0;
 
-    uint16_t base_address = UINT16_MAX;
+    uint32_t base_address = UINT32_MAX;
 
     switch(port)
     {
@@ -185,7 +194,7 @@ int i2c_write(i2c_port_t port, i2c_slave_adr_t adr, uint8_t *data, uint16_t len)
 int i2c_read(i2c_port_t port, i2c_slave_adr_t adr, uint8_t *data, uint16_t len){
     int err = 0;
 
-    uint16_t base_address = UINT16_MAX;
+    uint32_t base_address = UINT32_MAX;
 
     switch(port)
     {
@@ -196,7 +205,7 @@ int i2c_read(i2c_port_t port, i2c_slave_adr_t adr, uint8_t *data, uint16_t len){
             base_address = I2C2_BASE;
             break;
         case I2C_PORT_2:
-            base_address = I2C2_BASE;
+            base_address = I2C3_BASE;
             break;
         default:
         #if defined(CONFIG_DRIVERS_DEBUG_ENABLED) && (CONFIG_DRIVERS_DEBUG_ENABLED == 1)

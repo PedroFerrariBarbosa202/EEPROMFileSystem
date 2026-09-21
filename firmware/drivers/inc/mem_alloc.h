@@ -21,33 +21,10 @@
 #define MEMBLOCK_PADDING (8)
 
 typedef struct memBlock_t{
-    uint32_t size;
     uint8_t free;
-    struct memBlock_t *nextBlock;
+    uint16_t memPtr;
+    uint32_t size;
 }memBlock_t;
-
-memBlock_t *head;
-memBlock_t *tail;
-
-uint32_t* memPtr = (uint32_t*)(EEPROM_HEADER_SIZE + EEPROM_PADDING);
-
-/**
- * \brief creates a memory block and adds it to the 
- * 
- * \param block memory block to allocate
- *
- * \param size size in bytes of the new block
- *
- * \return pointer no memory block
- */
-static int memBlock_create(memBlock_t *block, uint32_t size);
-
-/**
- * \brief initiates the memory block linked list
- *
- * \return error code
- */
-int memBlock_init();
 
 /**
  * \brief allocates memory in the eeprom
@@ -58,17 +35,15 @@ int memBlock_init();
  *
  * \return error code
  */
-int memBlock_alloc(void* ptr, uint32_t size);
+int memBlock_alloc(uint16_t* ptr, uint32_t size);
 
 /**
- * \brief frees memory in the eeprom
+ * \brief gets the address of the end of the block list in eepromm
  *
- * \param ptr address to free
- *
- * \return error code
+ * \return address
  */
 
-int memBlock_free(void* ptr);
+uint16_t get_memPtr(void);
 
 #endif
 /** } End of mem_alloc*/

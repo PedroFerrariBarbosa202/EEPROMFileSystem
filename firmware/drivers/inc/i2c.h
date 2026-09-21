@@ -47,7 +47,7 @@ typedef uint8_t i2c_slave_adr_t;
  *
  * \return void
  */
-void i2c_init(i2c_port_t port, i2c_config_t config);
+int i2c_init(i2c_port_t port, i2c_config_t config);
 
 /**
  * \brief write data to i2c device

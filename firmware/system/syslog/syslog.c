@@ -1,8 +1,12 @@
 #include "syslog.h"  
 #include "string.h"                   
 
-void syslog_setup(void){
+void syslog_init(void){
     uart_setup();
+}
+
+void syslog_print_uint8(const uint8_t val){
+    uart_write_byte(val);
 }
 
 void syslog_print(const char* str){

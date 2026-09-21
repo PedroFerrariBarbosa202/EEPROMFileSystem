@@ -1,7 +1,7 @@
 /**
  * \brief error number protocol implementatipn
  *
- * \aithor Pedro Ferrari Barbosa
+ * \author Pedro Ferrari Barbosa
  *
  * \version 1.0
  *
@@ -13,11 +13,15 @@
  */
 
  /* sucess cases */
+ #ifndef SHARED_ERRNO_H
+ #define SHARED_ERRNO_H
+
  #define ERRNO_SUCESS 0x00U
 
  /* error cases*/
  #define ERRNO_ERROR 0x10U
  #define ERRNO_INVALID_ARG 0x11U
 
+ #endif
 
 /** } End of errno*/

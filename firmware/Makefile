@@ -17,6 +17,7 @@ DRIVER_INC_DIR     = drivers/inc
 SHARED_INC_DIR     = shared/inc
 SHARED_SRC_DIR     = shared/src
 
+SYSTEM_DIR     	   = system
 SYSLOG_DIR     	   = system/syslog
 
 OPENCM3_DIR = ../libopencm3
@@ -46,6 +47,7 @@ DEFS 		+= -I$(DEVICE_INC_DIR)
 DEFS		+= -I$(DRIVER_INC_DIR)
 DEFS		+= -I$(SHARED_INC_DIR)
 DEFS		+= -I$(SYSLOG_DIR)
+DEFS		+= -I$(SYSTEM_DIR)
 
 
 ###############################################################################
@@ -74,14 +76,17 @@ CSTD		?= -std=c99
 OBJS		+= $(APP_SRC_DIR)/$(BINARY).o
 
 # devices
-OBJS		+= $(DEVICE_SRC_DIR)/eeprom.o
 
 # drivers
 OBJS		+= $(DRIVER_SRC_DIR)/i2c.o
 OBJS		+= $(DRIVER_SRC_DIR)/mem_alloc.o
+OBJS		+= $(DRIVER_SRC_DIR)/driv_eeprom.o
 
 # shared
 OBJS		+= $(SHARED_SRC_DIR)/uart.o
+
+# system
+OBJS		+= $(SYSTEM_DIR)/system.o
 
 # syslog
 OBJS		+= $(SYSLOG_DIR)/syslog.o

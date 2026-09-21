@@ -1,6 +1,6 @@
-drivers/src/i2c.o: drivers/src/i2c.c \
- ../libopencm3/include/libopencm3/stm32/rcc.h \
- ../libopencm3/include/libopencm3/cm3/common.h \
+system/system.o: system/system.c system/system.h \
+ shared/inc/common_defines.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stdbool.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stdint.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/stdint.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/machine/_default_types.h \
@@ -8,22 +8,19 @@ drivers/src/i2c.o: drivers/src/i2c.c \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/_newlib_version.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/_intsup.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/_stdint.h \
- /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stdbool.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stddef.h \
+ shared/inc/errno.h ../libopencm3/include/libopencm3/cm3/systick.h \
+ ../libopencm3/include/libopencm3/cm3/memorymap.h \
+ ../libopencm3/include/libopencm3/cm3/common.h \
+ ../libopencm3/include/libopencm3/cm3/vector.h \
+ ../libopencm3/include/libopencm3/cm3/nvic.h \
+ ../libopencm3/include/libopencm3/dispatch/nvic.h \
+ ../libopencm3/include/libopencm3/stm32/f4/nvic.h \
+ ../libopencm3/include/libopencm3/stm32/rcc.h \
  ../libopencm3/include/libopencm3/stm32/memorymap.h \
  ../libopencm3/include/libopencm3/stm32/f4/memorymap.h \
- ../libopencm3/include/libopencm3/cm3/memorymap.h \
  ../libopencm3/include/libopencm3/stm32/f4/rcc.h \
  ../libopencm3/include/libopencm3/stm32/pwr.h \
  ../libopencm3/include/libopencm3/stm32/f4/pwr.h \
  ../libopencm3/include/libopencm3/stm32/common/pwr_common_v1.h \
- ../libopencm3/include/libopencm3/stm32/common/rcc_common_all.h \
- ../libopencm3/include/libopencm3/stm32/gpio.h \
- ../libopencm3/include/libopencm3/stm32/f4/gpio.h \
- ../libopencm3/include/libopencm3/stm32/common/gpio_common_f24.h \
- ../libopencm3/include/libopencm3/stm32/common/gpio_common_f234.h \
- ../libopencm3/include/libopencm3/stm32/common/gpio_common_all.h \
- drivers/inc/i2c.h ../libopencm3/include/libopencm3/stm32/i2c.h \
- ../libopencm3/include/libopencm3/stm32/f4/i2c.h \
- ../libopencm3/include/libopencm3/stm32/common/i2c_common_v1.h \
- /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stddef.h \
- shared/inc/errno.h
+ ../libopencm3/include/libopencm3/stm32/common/rcc_common_all.h

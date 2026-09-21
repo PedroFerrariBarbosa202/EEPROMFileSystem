@@ -8,7 +8,8 @@
 #define LOG_MT_WARNING ("WARNING: ")
 #define LOG_MT_ERROR ("ERROR: ")
 
-void syslog_setup(void);
+void syslog_init(void);
+void syslog_print_uint8(const uint8_t val);
 void syslog_print(const char* str);
 void syslog_log(const char* ev, const char* str);
 

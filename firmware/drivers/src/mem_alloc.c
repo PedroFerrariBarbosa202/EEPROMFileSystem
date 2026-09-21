@@ -11,59 +11,40 @@
  * \ingroup drivers
  * \{
  */
-
+#include "driv_eeprom.h"
 #include "mem_alloc.h"
 
-static int memBlock_create(memBlock_t *block, uint32_t size){
-    block = (memBlock_t *)memPtr;
+uint16_t memPtr = DATA_BLOCK_START_ADDR;
+uint32_t blockPtr = ALLOC_BLOCK_START_ADDR;
 
-    block->size = size;
-    block->nextBlock = NULL;
+static int memBlock_create(uint16_t* addr, uint32_t size){    
+    memBlock_t block;
+    block.size = size;
+    block.free = true;
+    block.memPtr = memPtr;
+    
+    /*'return' the address to the user*/
+    *addr = blockPtr;
 
-    tail->nextBlock = block;
-    tail = block;
-
-    /* update the ptr to next block's address*/
-    memPtr += (size/sizeof(uint32_t) + MEMBLOCK_HEADER_SIZE + MEMBLOCK_PADDING);
+    driv_eeprom_write(blockPtr, (uint8_t*)&block, sizeof(memBlock_t));
+    
+    /* update the ptr to next address*/
+    blockPtr += sizeof(memBlock_t);
+    memPtr += (size + MEMBLOCK_PADDING);
 
     return ERRNO_SUCESS;
 }
 
-int memBlock_init(){
-    head = (memBlock_t *)memPtr;
-
-    head->size = 0;
-    head->nextBlock = NULL;
-
-    tail = head;
-
-    /* update the ptr to next block's address*/
-    memPtr += (MEMBLOCK_HEADER_SIZE + MEMBLOCK_PADDING);
-    return ERRNO_SUCESS;    
-}
-
-int memBlock_alloc(void* ptr, uint32_t size){
+int memBlock_alloc(uint16_t* ptr, uint32_t size){
     int errno = 0;
-    memBlock_t *dummy = head;
-
-    /*try to find available block*/
-    while(dummy != NULL){
-        /*found memory block with requested size;*/
-        if(dummy->size >= size && dummy->free == 0){
-            ptr = (void*)dummy;
-        }
-    }
 
     /*create new block*/
-    errno = memBlock_create(dummy, size);
-    ptr = (void*)dummy;
-
+    errno = memBlock_create(ptr, size);
     return errno;
 }
 
-int memBlock_free(void* ptr){
-    memBlock_t *block = (memBlock_t *)ptr;
-    block->free = true;    
+uint16_t get_memPtr(void){
+    return memPtr;
 }
 
 /** } End of mem_alloc*/
