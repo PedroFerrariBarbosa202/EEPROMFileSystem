@@ -16,7 +16,7 @@
  #ifndef SHARED_ERRNO_H
  #define SHARED_ERRNO_H
 
- #define ERRNO_SUCESS 0x00U
+ #define ERRNO_SUCCESS 0x00U
 
  /* error cases*/
  #define ERRNO_ERROR 0x10U

@@ -22,6 +22,8 @@ static int memBlock_create(uint16_t* addr, uint32_t size){
     block.size = size;
     block.free = true;
     block.memPtr = memPtr;
+
+    block.next = blockPtr + sizeof(memBlock_t);
     
     /*'return' the address to the user*/
     *addr = blockPtr;
@@ -32,7 +34,7 @@ static int memBlock_create(uint16_t* addr, uint32_t size){
     blockPtr += sizeof(memBlock_t);
     memPtr += (size + MEMBLOCK_PADDING);
 
-    return ERRNO_SUCESS;
+    return ERRNO_SUCCESS;
 }
 
 int memBlock_alloc(uint16_t* ptr, uint32_t size){

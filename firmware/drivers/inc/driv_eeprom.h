@@ -22,7 +22,8 @@
 #define SUPERBLOCK_SIZE (sizeof(struct superblock_t))
 
 #define SUPERBLOCK_START_ADDR (0x0000)
-#define ALLOC_BLOCK_START_ADDR (0x0100)
+#define FILE_DESCRIPTOR_START_ADDR (0x0100)
+#define ALLOC_BLOCK_START_ADDR (0x0300)
 #define DATA_BLOCK_START_ADDR (0x1000)
 
 typedef struct superblock_t{

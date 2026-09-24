@@ -26,7 +26,7 @@ int driv_eeprom_write(const uint16_t addr, const uint8_t* tx_buf, uint32_t lengt
     memcpy((write_buf + 2), tx_buf, length);
     i2c_write(I2C_PORT_0, EEPROM_ADDR, write_buf, length + 2);   
     
-    return ERRNO_SUCESS;
+    return ERRNO_SUCCESS;
 }
 
 int driv_eeprom_read(const uint16_t addr, uint8_t* rx_buf, uint32_t length){
@@ -37,7 +37,7 @@ int driv_eeprom_read(const uint16_t addr, uint8_t* rx_buf, uint32_t length){
     i2c_write(I2C_PORT_0, EEPROM_ADDR, read_buf, 2);
     i2c_read(I2C_PORT_0, EEPROM_ADDR, rx_buf, length);  
     
-    return ERRNO_SUCESS;
+    return ERRNO_SUCCESS;
 }
 
 

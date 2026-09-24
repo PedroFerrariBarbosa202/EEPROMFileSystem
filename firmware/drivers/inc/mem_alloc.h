@@ -24,6 +24,8 @@ typedef struct memBlock_t{
     uint8_t free;
     uint16_t memPtr;
     uint32_t size;
+
+    uint16_t next;
 }memBlock_t;
 
 /**

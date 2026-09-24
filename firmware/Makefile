@@ -76,6 +76,7 @@ CSTD		?= -std=c99
 OBJS		+= $(APP_SRC_DIR)/$(BINARY).o
 
 # devices
+OBJS += $(DEVICE_SRC_DIR)/file_system.o
 
 # drivers
 OBJS		+= $(DRIVER_SRC_DIR)/i2c.o

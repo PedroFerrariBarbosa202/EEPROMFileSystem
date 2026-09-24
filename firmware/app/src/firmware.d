@@ -35,10 +35,14 @@ app/src/firmware.o: app/src/firmware.c \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/machine/_types.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/lock.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/string.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/stdio.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stdarg.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/stdio.h \
  system/system.h shared/inc/common_defines.h shared/inc/errno.h \
  system/syslog/syslog.h shared/inc/uart.h shared/inc/common_defines.h \
  drivers/inc/i2c.h ../libopencm3/include/libopencm3/stm32/i2c.h \
  ../libopencm3/include/libopencm3/stm32/f4/i2c.h \
  ../libopencm3/include/libopencm3/stm32/common/i2c_common_v1.h \
  shared/inc/errno.h drivers/inc/mem_alloc.h drivers/inc/driv_eeprom.h \
- drivers/inc/driv_eeprom.h
+ drivers/inc/driv_eeprom.h devices/inc/file_system.h \
+ devices/inc/file_metadata.h

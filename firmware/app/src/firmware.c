@@ -1,6 +1,7 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "system.h"
 #include "common_defines.h"
@@ -8,6 +9,7 @@
 #include "i2c.h"
 #include "mem_alloc.h"
 #include "driv_eeprom.h"
+#include "file_system.h"
 
 #define UART_PORT (GPIOA)
 #define RX_PIN (GPIO3)
@@ -28,31 +30,75 @@ int main(void)
         .speed_hz = i2c_speed_fm_400k
     };
 
+    int errno;
+
     system_setup();
     gpio_setup();
+
     i2c_init(I2C1, config);
+
     syslog_init();
 
+    fs_init();
+
     syslog_print("\r\n-------------------------------------------\r\n");
+
+    file_descriptor_t file;
+
+    errno = file_create(&file, "pedro", 128);
+
+    if (errno != ERRNO_SUCCESS)
+        return errno;
+
+    syslog_log(LOG_MT_INFO, "created file");
+
+    system_delay(1000);
+
+    const uint8_t tx_buffer[] = "PEDRO IS COOL";
+
+    errno = file_write(
+        file,
+        tx_buffer,
+        sizeof(tx_buffer) - 1
+    );
+
+    system_delay(1000);
+
+    if (errno != ERRNO_SUCCESS)
+        return errno;
+
+    syslog_log(LOG_MT_INFO, "wrote to file");
     
-    uint16_t addr;
-    int error = memBlock_alloc(&addr, 128);
+    system_delay(1000);
 
-    system_delay(100);
+    uint8_t rx_buffer[128];
 
-    uint8_t tx_buffer = 0x47;
-    driv_eeprom_write(addr, &tx_buffer, 1);
+    errno = file_read(
+        file,
+        rx_buffer,
+        128
+    );
+
+    system_delay(1000);
+
+
+    if (errno != ERRNO_SUCCESS)
+        return errno;
+
+    system_delay(1000);
+
+    syslog_log(LOG_MT_INFO, "read!");
+    syslog_log(LOG_MT_INFO, (const char*)&rx_buffer);
+
+
+    syslog_log(LOG_MT_INFO, "printing errno: ");
     
-    system_delay(100);
+    char log_buffer[32];
 
-    syslog_log(LOG_MT_INFO, "SENT VALUE");
+    snprintf(log_buffer, sizeof(log_buffer), "errno = %d\r\n", errno);
+    syslog_log(LOG_MT_INFO, log_buffer);
 
-    uint8_t rx_buffer;
-    driv_eeprom_read(addr, &rx_buffer, 1);
+    for (;;);
 
-    syslog_log(LOG_MT_INFO, "VALUE READ FROM MEMORY:");
-    syslog_print_uint8(rx_buffer);
-    for(;;);
-
-    return ERRNO_SUCESS;
+    return ERRNO_SUCCESS;
 }
