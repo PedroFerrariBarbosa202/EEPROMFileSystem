@@ -15,11 +15,16 @@ devices/src/file_system.o: devices/src/file_system.c \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/machine/_types.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/lock.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/string.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/stdio.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stdarg.h \
+ /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/stdio.h \
  drivers/inc/mem_alloc.h shared/inc/common_defines.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stdbool.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stdint.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/stdint.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/_intsup.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/_stdint.h \
- shared/inc/errno.h drivers/inc/driv_eeprom.h devices/inc/file_system.h \
- devices/inc/file_metadata.h system/system.h
+ shared/inc/errno.h system/syslog/syslog.h shared/inc/uart.h \
+ shared/inc/common_defines.h drivers/inc/driv_eeprom.h \
+ devices/inc/file_system.h devices/inc/file_metadata.h system/system.h \
+ shared/inc/config.h

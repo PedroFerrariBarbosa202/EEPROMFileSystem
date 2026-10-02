@@ -28,4 +28,5 @@ drivers/src/driv_eeprom.o: drivers/src/driv_eeprom.c \
  ../libopencm3/include/libopencm3/stm32/f4/i2c.h \
  ../libopencm3/include/libopencm3/stm32/common/i2c_common_v1.h \
  drivers/inc/driv_eeprom.h shared/inc/common_defines.h shared/inc/errno.h \
+ system/syslog/syslog.h shared/inc/uart.h shared/inc/common_defines.h \
  drivers/inc/i2c.h shared/inc/errno.h
