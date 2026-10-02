@@ -44,60 +44,26 @@ int main(void)
     syslog_print("\r\n-------------------------------------------\r\n");
 
     file_descriptor_t file;
+    errno = file_open(&file, "pedro");
 
-    errno = file_create(&file, "pedro", 128);
-
-    if (errno != ERRNO_SUCCESS)
+    if (errno != ERRNO_SUCCESS){
+        syslog_log(LOG_MT_ERROR, "FAILED TO OPEN FILE");
         return errno;
+    }
 
     syslog_log(LOG_MT_INFO, "created file");
 
-    system_delay(1000);
-
-    const uint8_t tx_buffer[] = "PEDRO IS COOL";
-
-    errno = file_write(
-        file,
-        tx_buffer,
-        sizeof(tx_buffer) - 1
-    );
-
-    system_delay(1000);
-
+    
     if (errno != ERRNO_SUCCESS)
         return errno;
 
-    syslog_log(LOG_MT_INFO, "wrote to file");
-    
-    system_delay(1000);
 
-    uint8_t rx_buffer[128];
+    char chr;
+    while(file_read_chr(&file, &chr) != ERRNO_EOF){
+      syslog_print_uint8((uint8_t)chr);
+    } 
 
-    errno = file_read(
-        file,
-        rx_buffer,
-        128
-    );
-
-    system_delay(1000);
-
-
-    if (errno != ERRNO_SUCCESS)
-        return errno;
-
-    system_delay(1000);
-
-    syslog_log(LOG_MT_INFO, "read!");
-    syslog_log(LOG_MT_INFO, (const char*)&rx_buffer);
-
-
-    syslog_log(LOG_MT_INFO, "printing errno: ");
-    
-    char log_buffer[32];
-
-    snprintf(log_buffer, sizeof(log_buffer), "errno = %d\r\n", errno);
-    syslog_log(LOG_MT_INFO, log_buffer);
-
+    fs_close();
     for (;;);
 
     return ERRNO_SUCCESS;

@@ -9,7 +9,9 @@ system/system.o: system/system.c system/system.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/_intsup.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/_stdint.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stddef.h \
- shared/inc/errno.h ../libopencm3/include/libopencm3/cm3/systick.h \
+ shared/inc/errno.h system/syslog/syslog.h shared/inc/uart.h \
+ shared/inc/common_defines.h \
+ ../libopencm3/include/libopencm3/cm3/systick.h \
  ../libopencm3/include/libopencm3/cm3/memorymap.h \
  ../libopencm3/include/libopencm3/cm3/common.h \
  ../libopencm3/include/libopencm3/cm3/vector.h \

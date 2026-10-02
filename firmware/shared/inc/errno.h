@@ -21,6 +21,9 @@
  /* error cases*/
  #define ERRNO_ERROR 0x10U
  #define ERRNO_INVALID_ARG 0x11U
+ #define ERRNO_NO_FILE_FOUND 0x12U
+
+ #define ERRNO_EOF 0xffU
 
  #endif
 
