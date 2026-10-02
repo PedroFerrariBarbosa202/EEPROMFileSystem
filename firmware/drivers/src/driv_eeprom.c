@@ -40,19 +40,5 @@ int driv_eeprom_read(const uint16_t addr, uint8_t* rx_buf, uint32_t length){
     return ERRNO_SUCCESS;
 }
 
-int driv_eeprom_write_page(const uint16_t addr, uint8_t* tx_buf, uint32_t length){
-  for (uint32_t offset = 0; offset < length; offset += EEPROM_PAGE_SIZE) {
-    uint32_t remaining = length - offset;
-    uint32_t chunk_size =
-        remaining < EEPROM_PAGE_SIZE
-            ? remaining
-            : EEPROM_PAGE_SIZE;
 
-    driv_eeprom_write(
-        addr + offset,
-        tx_buf + offset,
-        chunk_size
-    );
-  }
-}
 /** } End of eeprom*/

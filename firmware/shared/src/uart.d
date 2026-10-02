@@ -27,4 +27,4 @@ shared/src/uart.o: shared/src/uart.c \
  ../libopencm3/include/libopencm3/stm32/common/usart_common_all.h \
  shared/inc/uart.h shared/inc/common_defines.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stddef.h \
- shared/inc/errno.h system/syslog/syslog.h shared/inc/common_defines.h
+ shared/inc/errno.h

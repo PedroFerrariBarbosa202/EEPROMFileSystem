@@ -9,7 +9,7 @@ system/syslog/syslog.o: system/syslog/syslog.c system/syslog/syslog.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/_intsup.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/sys/_stdint.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/lib/gcc/arm-none-eabi/14.3.1/include/stddef.h \
- shared/inc/errno.h system/syslog/syslog.h shared/inc/common_defines.h \
+ shared/inc/errno.h shared/inc/common_defines.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/string.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/_ansi.h \
  /opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/arm-none-eabi/include/newlib.h \
