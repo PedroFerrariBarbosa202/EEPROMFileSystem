@@ -25,7 +25,7 @@
  static uint32_t directory_ctr = 0;
  static file_descriptor_t directory[MAX_FILES];
 
-static int retrieve_directory_eeprom(){
+static error_t retrieve_directory_eeprom(){
   return driv_eeprom_read(
             FILE_DESCRIPTOR_START_ADDR,
             (uint8_t *)directory,
@@ -33,7 +33,7 @@ static int retrieve_directory_eeprom(){
         );
 }
 
-static int return_directory_eeprom(){
+static error_t return_directory_eeprom(){
   return driv_eeprom_write_page(
             FILE_DESCRIPTOR_START_ADDR,
             (uint8_t *)directory,
@@ -41,7 +41,7 @@ static int return_directory_eeprom(){
         );
 }
 
-static int get_file_memBlock_data(file_descriptor_t* file, char* data, uint32_t length){
+static error_t get_file_memBlock_data(file_descriptor_t* file, char* data, uint32_t length){
   int errno = ERRNO_SUCCESS;
   memBlock_t memBlock;
   
@@ -50,7 +50,7 @@ static int get_file_memBlock_data(file_descriptor_t* file, char* data, uint32_t 
   return errno;
 }
 
-static int set_file_memBlock_data(file_descriptor_t* file, char* data, uint32_t length){
+static error_t set_file_memBlock_data(file_descriptor_t* file, char* data, uint32_t length){
   int errno = ERRNO_SUCCESS;
   memBlock_t memBlock;
 
@@ -59,7 +59,7 @@ static int set_file_memBlock_data(file_descriptor_t* file, char* data, uint32_t 
   return errno;
 }
 
-static int find_file_in_dir(const char* file_name){
+static error_t find_file_in_dir(const char* file_name){
   for(int i = 0; i < MAX_FILES; i++){
     if(strcmp(file_name, directory[i].file_name) == 0){
       return i;
@@ -69,7 +69,7 @@ static int find_file_in_dir(const char* file_name){
   return -1;
 }
 
-static int set_file_directory(file_descriptor_t* file){
+static error_t set_file_directory(file_descriptor_t* file){
   int indx = find_file_in_dir(file->file_name);
 
   if(indx == -1){
@@ -80,8 +80,7 @@ static int set_file_directory(file_descriptor_t* file){
   return ERRNO_SUCCESS;
 }
 
-
-int fs_init(void){
+error_t fs_init(void){
   int errno = ERRNO_SUCCESS;
   file_descriptor_t buffer[MAX_FILES];
   errno = retrieve_directory_eeprom();
@@ -89,7 +88,8 @@ int fs_init(void){
   for(uint32_t i = 0; i < MAX_FILES; i++){
     if(directory[i].deleted == false){
 #if defined(DEBUG) && (DEBUG == 1)
-      syslog_log(LOG_MT_INFO, "file checked on initialization");
+      syslog_print("\n\r");
+      syslog_log(LOG_MT_DEBUG, "file checked on initialization");
 #endif
       buffer[directory_ctr++] = directory[i];
     }
@@ -99,11 +99,11 @@ int fs_init(void){
   return errno;
 }
 
-int fs_close(void){
+error_t fs_close(void){
   return return_directory_eeprom();
 }
 
-int file_create(file_descriptor_t *file, const char *file_name, uint32_t size){
+error_t file_create(file_descriptor_t *file, const char *file_name, uint32_t size){
     int errno = ERRNO_SUCCESS;
     uint16_t mem_ptr;
 
@@ -127,7 +127,7 @@ int file_create(file_descriptor_t *file, const char *file_name, uint32_t size){
     return errno;
 }
 
- int file_write(file_descriptor_t *file, const uint8_t* data, uint32_t length){
+ error_t file_write(file_descriptor_t *file, const uint8_t* data, uint32_t length){
     int errno = ERRNO_SUCCESS;
    
     errno = set_file_memBlock_data(file, data, length);
@@ -137,7 +137,7 @@ int file_create(file_descriptor_t *file, const char *file_name, uint32_t size){
     return errno;
  }
 
- int file_read(file_descriptor_t *file, uint8_t* data, uint32_t length){
+ error_t file_read(file_descriptor_t *file, uint8_t* data, uint32_t length){
     int errno = ERRNO_SUCCESS;
     
     errno = get_file_memBlock_data(file, data, length); 
@@ -146,7 +146,7 @@ int file_create(file_descriptor_t *file, const char *file_name, uint32_t size){
  }
 
 
- int file_read_chr(file_descriptor_t *file, char* chr){
+error_t file_read_chr(file_descriptor_t *file, char* chr){
     int errno = ERRNO_SUCCESS;
     memBlock_t memBlock;
     char buff;
@@ -164,7 +164,7 @@ int file_create(file_descriptor_t *file, const char *file_name, uint32_t size){
     return errno;
  }
 
-int file_open(file_descriptor_t *file, const char* name){
+error_t file_open(file_descriptor_t *file, const char* name){
   int indx = find_file_in_dir(name);
   *file = directory[indx];
 

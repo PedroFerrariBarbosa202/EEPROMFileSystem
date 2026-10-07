@@ -13,6 +13,7 @@
  */
 
  #include "mem_alloc.h"
+ #include "errno.h"
  #include "eefs/eefs_metadata.h"
  #include "system.h"
  #include "common_defines.h"
@@ -44,15 +45,15 @@ typedef struct superblock_t{
     char file_name[FILE_MAX_NAME_SIZE];
  }file_descriptor_t;
 
- int fs_init();
- int fs_close();
+ error_t fs_init();
+ error_t fs_close();
 
- int file_create(file_descriptor_t *file, const char *file_name, uint32_t size);
- int file_write(file_descriptor_t *file, const uint8_t* data, uint32_t length);
- int file_read(file_descriptor_t *file, uint8_t* data, uint32_t length);
- int file_read_chr(file_descriptor_t *file, char* chr);
+ error_t file_create(file_descriptor_t *file, const char *file_name, uint32_t size);
+ error_t file_write(file_descriptor_t *file, const uint8_t* data, uint32_t length);
+ error_t file_read(file_descriptor_t *file, uint8_t* data, uint32_t length);
+ error_t file_read_chr(file_descriptor_t *file, char* chr);
 
- int file_open(file_descriptor_t *file, const char* name);
+ error_t file_open(file_descriptor_t *file, const char* name);
 
 
 /** } End of file_system*/

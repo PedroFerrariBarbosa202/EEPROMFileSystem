@@ -12,18 +12,38 @@
  * \{
  */
 
- /* sucess cases */
- #ifndef SHARED_ERRNO_H
- #define SHARED_ERRNO_H
+#ifndef SHARED_ERRNO_H
+#define SHARED_ERRNO_H
 
- #define ERRNO_SUCCESS 0x00U
+/*
+ * \brief error enum type
+ */
+typedef enum error_t{
+#define ERROR(errno) errno, 
+  #include "details/errno.inc"
+#undef ERROR /*avoid global namespace pollution*/
 
- /* error cases*/
- #define ERRNO_ERROR 0x10U
- #define ERRNO_INVALID_ARG 0x11U
- #define ERRNO_NO_FILE_FOUND 0x12U
+  ERRNO_LIST_LENGTH
+}error_t;
 
- #define ERRNO_EOF 0xffU
+/**
+ * \brief converts errno value to its string representation.
+ *
+ * \param error is the error that will be converted.
+ *
+ * \return the string representation of the parameter.
+ */
+static const char *error_as_string(error_t error)
+{
+    switch (error) {
+#define ERROR(errno) case errno: return #errno;
+  #include "details/errno.inc"
+#undef ERROR
+      case ERRNO_LIST_LENGTH: return "ERROR_LIST_LENGTH";
+    }
+
+    return "ERROR_FAILED_STRING_CONVERSION";
+}
 
  #endif
 

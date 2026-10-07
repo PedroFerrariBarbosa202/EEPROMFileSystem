@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "eefs/eefs.h"
+#include "eefs/eefs_device.h"
 
 #include "system.h"
 #include "common_defines.h"
@@ -39,21 +39,22 @@ int main(void)
     i2c_init(I2C1, config);
 
     syslog_init();
-
-    fs_init();
-
     syslog_print("\r\n-------------------------------------------\r\n");
+    
+    eefs_device_t *eefs_device = get_eefs_device_handle();
+    eefs_device->api->eefs_open();
 
+  
     file_descriptor_t file;
 
-    errno = file_create(&file, "pedro", 128);
+    errno = eefs_device->api->eefs_file_create(&file, "pedro", 128);
 
     if (errno != ERRNO_SUCCESS) {
         syslog_log(LOG_MT_ERROR, "FAILED TO CREATE FILE");
         return errno;
     }
 
-    errno = file_open(&file, "pedro");
+    errno = eefs_device->api->eefs_file_open(&file, "pedro");
 
     if (errno != ERRNO_SUCCESS) {
         syslog_log(LOG_MT_ERROR, "FAILED TO OPEN FILE");
@@ -65,7 +66,7 @@ int main(void)
 
     const char *data = "Teste";
 
-    errno = file_write(&file,
+    errno = eefs_device->api->eefs_file_write(&file,
                        (uint8_t *)data,
                        strlen(data));
 
@@ -80,10 +81,10 @@ int main(void)
     syslog_log(LOG_MT_INFO, "reading from file");
 
     char chr;
-    while (file_read_chr(&file, &chr) != ERRNO_EOF) {
+    while (eefs_device->api->eefs_file_read_chr(&file, &chr) != ERRNO_EOF) {
         syslog_print_uint8((uint8_t)chr);
     }
-    fs_close();
+    eefs_device->api->eefs_close();
 
     for (;;);
 
