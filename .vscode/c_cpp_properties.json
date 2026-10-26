@@ -1,0 +1,33 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "compilerPath": "/usr/bin/g++",
+            "intelliSenseMode": "linux-gcc-x64",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/x86_64-linux-gnu",
+                "/usr/include"
+            ]
+        },
+        {
+            "name": "STM32F401",
+            "compilerPath": "/opt/st/stm32cubeclt_1.22.0/GNU-tools-for-STM32/bin/arm-none-eabi-gcc",
+            "intelliSenseMode": "gcc-arm",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/libopencm3/include"
+            ],
+            "defines": [
+                "STM32F4",
+                "STM32F401",
+                "STM32F401xE"
+            ]
+        }
+    ],
+    "version": 4
+}
